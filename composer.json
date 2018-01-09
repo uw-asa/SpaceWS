@@ -1,0 +1,26 @@
+{
+  "name": "uwcte/space",
+  "description": "Client library for the University of Washington Space Web Service",
+  "authors": [
+      {
+          "name": "Bradley Bell",
+          "email": "bradleyb@uw.edu",
+          "role": "Developer"
+      }
+  ],
+  "autoload": {
+    "classmap": [
+      "src/"
+    ]
+  },
+  "require": {
+    "uwdoem/connection": "3.*"
+  },
+  "require-dev": {
+    "uwdoem/standard": "*",
+    "phpunit/phpunit": "4.5.*",
+    "phpdocumentor/phpdocumentor": "2.7.*",
+    "codeclimate/php-test-reporter": "dev-master",
+    "squizlabs/php_codesniffer": "2.*"
+  }
+}
