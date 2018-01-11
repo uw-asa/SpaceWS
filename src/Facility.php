@@ -19,12 +19,12 @@ class Facility extends Space
      */
     public function getFullData()
     {
-	$resp = static::getConnection()->execGET("facility/{$this->attributes['FacilityNumber']}/restricted.json");
+        $resp = static::getConnection()->execGET("facility/{$this->attributes['FacilityNumber']}/restricted.json");
 
-	$data = json_decode($resp->getData(), true);
+        $data = json_decode($resp->getData(), true);
 
-	$this->fill($this, $data);
-	$this->fill($this, $data['Addresses'][0]);
+        $this->fill($this, $data);
+        $this->fill($this, $data['Addresses'][0]);
 
         return $this;
     }
@@ -37,18 +37,18 @@ class Facility extends Space
      */
     public static function fromFacilityCode($facilityCode)
     {
-	$resp = static::getConnection()->execGET("facility.json?facility_code=$facilityCode");
+        $resp = static::getConnection()->execGET("facility.json?facility_code=$facilityCode");
 
-	$data = json_decode($resp->getData(), true);
+        $data = json_decode($resp->getData(), true);
 
-	if ($data['TotalCount'] != 1) {
+        if ($data['TotalCount'] != 1) {
             throw new \Exception("Not exactly one facility found for $facilityCode");
         }
 
-	$facility = new static();
-	$facility->fill($facility, $data['Facilitys'][0]);
+        $facility = new static();
+        $facility->fill($facility, $data['Facilitys'][0]);
 
-	return $facility;
+        return $facility;
     }
 
 }
