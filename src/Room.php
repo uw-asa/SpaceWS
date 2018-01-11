@@ -2,8 +2,6 @@
 
 namespace UW\SpaceWS;
 
-use UWDOEM\Connection\Connection;
-
 /**
  * Container class for data received from Space Web Service
  *
