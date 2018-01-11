@@ -17,6 +17,14 @@ class Space
     /** @var \UWDOEM\Connection\Connection */
     protected static $connection;
 
+
+    function __construct($arg)
+    {
+        if (is_array($arg)) {
+            $this->fill($this, $arg);
+        }
+    }
+
     /**
      * @param string $attribute
      * @return mixed
@@ -39,8 +47,7 @@ class Space
     {
         foreach ($attrs as $key => $value) {
             if (class_exists($class = __NAMESPACE__ . '\\' . $key)) {
-                $space->attributes[$key] = new $class;
-                $space->attributes[$key]->fill($space->attributes[$key], $value);
+                $space->attributes[$key] = new $class($value);
             }
             elseif (is_string($value) === true || is_bool($value) === true || $value === null) {
                 $space->attributes[$key] = $value;

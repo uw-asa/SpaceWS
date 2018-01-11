@@ -43,8 +43,7 @@ class Facility extends Space
             throw new \Exception("Not exactly one facility found for $facilityCode");
         }
 
-        $facility = new static();
-        $facility->fill($facility, $data['Facilitys'][0]);
+        $facility = new static($data['Facilitys'][0]);
 
         return $facility;
     }

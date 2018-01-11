@@ -46,8 +46,7 @@ class Room extends Space
             throw new \Exception("Not exactly one room found for $facilityCode $roomNumber");
         }
 
-        $room = new static();
-        $room->fill($room, $data['Rooms'][0]);
+        $room = new static($data['Rooms'][0]);
 
         return $room;
     }
