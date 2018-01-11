@@ -1,6 +1,6 @@
 <?php
 
-namespace UW\Space;
+namespace UW\SpaceWS;
 
 use UWDOEM\Connection\Connection;
 
@@ -30,7 +30,7 @@ class Facility extends Space
     }
 
     /**
-     * Create a Space from a Facility Code.
+     * Create a Facility from a Facility Code.
      *
      * @param string $facilityCode
      * @return null|Facility
