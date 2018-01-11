@@ -38,10 +38,14 @@ class Space
     protected static function fill(Space $space, array $attrs)
     {
         foreach ($attrs as $key => $value) {
-            if (is_string($value) === true || is_bool($value) === true || $value === null) {
+	    if (class_exists($class = __NAMESPACE__ . '\\' . $key)) {
+		$space->attributes[$key] = new $class;
+		$space->attributes[$key]->fill($space->attributes[$key], $value);
+	    }
+            elseif (is_string($value) === true || is_bool($value) === true || $value === null) {
                 $space->attributes[$key] = $value;
             }
-	    if (is_array($value) === true) {
+	    elseif (is_array($value) === true) {
 		foreach ($value as $a_key => $a_value) {
 		    if (is_string($a_value) === true || is_bool($a_value) === true || $a_value === null) {
 			$space->attributes[$key.$a_key] = $a_value;
@@ -51,6 +55,30 @@ class Space
 		    
         }
         return $space;
+    }
+
+    /**
+     * Get matching objects
+     *
+     * @param string $searchString
+     * @return array
+     */
+    public static function search($searchString)
+    {
+	$class = substr(strrchr(static::class, '\\'), 1);
+	$endpoint = strtolower($class);
+
+	$resp = static::getConnection()->execGET("{$endpoint}.json?{$searchString}");
+
+	$data = json_decode($resp->getData(), true);
+	$objects = array();
+	foreach ($data["{$class}s"] as $record) {
+	    $object = new static();
+	    $object->fill($object, $record);
+	    array_push($objects, $object);
+	}
+
+	return $objects;
     }
 
     /**
