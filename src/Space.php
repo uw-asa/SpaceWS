@@ -80,8 +80,7 @@ class Space
         $data = json_decode($resp->getData(), true);
         $objects = array();
         foreach ($data["{$class}s"] as $record) {
-            $object = new static();
-            $object->fill($object, $record);
+            $object = new static($record);
             array_push($objects, $object);
         }
 
