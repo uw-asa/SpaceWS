@@ -35,17 +35,13 @@ class Facility extends Space
      */
     public static function fromFacilityCode($facilityCode)
     {
-        $resp = static::getConnection()->execGET("facility.json?facility_code=$facilityCode");
+        $result = static::search("facility_code=$facilityCode");
 
-        $data = json_decode($resp->getData(), true);
-
-        if ($data['TotalCount'] != 1) {
+        if (count($result) != 1) {
             throw new \Exception("Not exactly one facility found for $facilityCode");
         }
 
-        $facility = new static($data['Facilitys'][0]);
-
-        return $facility;
+        return $result[0];
     }
 
 }

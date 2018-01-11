@@ -38,17 +38,13 @@ class Room extends Space
      */
     public static function fromFacilityCodeAndRoomNumber($facilityCode, $roomNumber)
     {
-        $resp = static::getConnection()->execGET("room.json?facility_code=$facilityCode&room_number=$roomNumber");
+        $result = static::search("facility_code=$facilityCode&room_number=$roomNumber");
 
-        $data = json_decode($resp->getData(), true);
-
-        if ($data['TotalCount'] != 1) {
+        if (count($result) != 1) {
             throw new \Exception("Not exactly one room found for $facilityCode $roomNumber");
         }
 
-        $room = new static($data['Rooms'][0]);
-
-        return $room;
+        return $result[0];
     }
 
 }
