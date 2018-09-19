@@ -17,7 +17,7 @@ class Room extends Space
      */
     public function getFullData()
     {
-        $identifier = join(',', array($this->attributes['FacilityNumber'],
+        $identifier = join(',', array($this->attributes['Facility']->attributes['FacilityNumber'],
                                       $this->attributes['FloorCode'],
                                       $this->attributes['RoomNumber']));
                                       
